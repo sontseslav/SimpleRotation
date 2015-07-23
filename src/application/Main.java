@@ -35,7 +35,7 @@ public class Main extends Application {
 		}
 	}
 	
-	private void rotateLine(Scene scene,Line line){
+	private void rotateLine(Scene scene, final Line line){
 		final int STEP = 5;
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
 
