@@ -1,14 +1,11 @@
 package application;
 	
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 
 public class Main extends Application {
@@ -26,38 +23,21 @@ public class Main extends Application {
 			line2.setStroke(Color.CHARTREUSE);
 			root.getChildren().add(line1);
 			root.getChildren().add(line2);
-			rotateLine(scene, line1);
-			rotateLine(scene, line2);
+//			rotateLine(scene, line1);
+//			rotateLine(scene, line2);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+            LineRotationStateManager manager = new LineRotationStateManager();
+
+            manager.addState(new LineRotationState(scene, line1));
+            manager.addState(new LineRotationState(scene, line2));
+
+            manager.runNextState();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private void rotateLine(Scene scene, final Line line){
-		final int STEP = 5;
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
-
-			@Override
-			public void handle(KeyEvent event) {
-				switch (event.getCode()){
-				case UP:
-					line.getTransforms().add(new Rotate(-STEP,50,50));
-					break;
-				case DOWN:
-					line.getTransforms().add(new Rotate(STEP,50,50));
-					break;
-				case ENTER:
-					//exit from here... 
-					return;
-				default:
-					break;
-				}
-				
-			}
-			
-		});
 	}
 	
 	public static void main(String[] args) {
