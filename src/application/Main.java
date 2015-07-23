@@ -28,7 +28,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
-            LineRotationStateManager manager = new LineRotationStateManager();
+            StateManager manager = new StateManager();
 
             manager.addState(new LineRotationState(scene, line1));
             manager.addState(new LineRotationState(scene, line2));

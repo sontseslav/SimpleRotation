@@ -8,8 +8,9 @@ import javafx.scene.transform.Rotate;
 
 /**
  * Описывает состояние, при котором нажатие стрелок наклоняет линию
+ * Ничего не знает о менеджере, только выполняет super.finish(); при завершении
  */
-public class LineRotationState {
+public class LineRotationState extends State {
 
     private final static int STEP = 5;
 
@@ -17,22 +18,14 @@ public class LineRotationState {
 
     private final Line line;
 
-    // Никто снаружи не знает, когда завершится это состяние.
-    // Пусть об этом узнает Менеджер и принимает дальнейшие решения
-    private LineRotationStateManager manager;
-
     // Конструктор
     public LineRotationState(Scene scene, Line line) {
         this.scene = scene;
         this.line = line;
     }
 
-    // Сеттер
-    public void setManager(LineRotationStateManager manager) {
-        this.manager = manager;
-    }
-
     // Состояние стартует
+    @Override
     public void start() {
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -61,10 +54,11 @@ public class LineRotationState {
 
     // Состояние завершается
     // public = и снаружи, и изнутри.
+    @Override
     public void finish() {
         // Очищаем сцену от себя
         scene.setOnKeyPressed(null);
         // Уведомляем менеджера
-        manager.onStateFinished();
+        super.finish();
     }
 }
