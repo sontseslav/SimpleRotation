@@ -6,20 +6,20 @@ import java.util.Queue;
 /**
  *
  */
-public class LineRotationStateManager {
+public class StateManager {
 
     // Очередь состояний, новые добавляются в конец, выполненные - удаляются с головы
-    private Queue<LineRotationState> stateQueue = new LinkedList<LineRotationState>();
+    private Queue<State> stateQueue = new LinkedList<State>();
 
     // Добавление в очередь
-    public void addState(LineRotationState state) {
+    public void addState(State state) {
         state.setManager(this);
         stateQueue.add(state);
     }
 
     // Выполнение следующего состояния, если есть что выполнять
     public void runNextState() {
-        LineRotationState state = stateQueue.poll();
+        State state = stateQueue.poll();
         if (state != null) {
             state.start();
         }
